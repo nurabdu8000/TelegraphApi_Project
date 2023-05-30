@@ -17,5 +17,5 @@ public class PostEntity extends BaseEntity{
     private String content;
     @ManyToOne
     @JoinColumn(name = "ownerId" ,referencedColumnName = "id")
-    private UserEntity user;
+    private UserEntity ownerId;
 }
