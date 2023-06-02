@@ -10,7 +10,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
 public class PostEntity extends BaseEntity{
     private String title;
     private String author;
