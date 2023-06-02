@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 @RequiredArgsConstructor
 public class PostService {
@@ -37,14 +38,14 @@ public class PostService {
         return byId.orElse(null);
     }
 
-    public List<PostEntity> getAll(int page, int size){
+    public List<PostEntity> getAll(Long id,int page, int size){
         Pageable pageable = PageRequest.of(page, size);
-        return postRepo.findAll(pageable).getContent();
+        return postRepo.getPostEntitiesByUserId(id,pageable);
     }
 
-    public List<PostEntity> searchByTitleOrDate(String title, LocalDateTime date){
+    public List<PostEntity> searchByTitleOrDate(String title, LocalDateTime creationDate,boolean sort){
         return postRepo.searchPostEntityByTitleContainsIgnoreCaseOrCreationDateContainsIgnoreCase(
-                title ,date, Sort.by(Sort.Order.asc("creationDate"))
+                title ,creationDate, Sort.by(Sort.Order.asc("creationDate"))
         );
     }
 

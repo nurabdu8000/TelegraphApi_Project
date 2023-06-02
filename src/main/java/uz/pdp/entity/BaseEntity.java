@@ -10,15 +10,16 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @MappedSuperclass
 @Setter
 @Getter
-public class BaseEntity {
+public abstract class BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-   protected Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
 
     @CreationTimestamp
     protected LocalDateTime creationDate;
