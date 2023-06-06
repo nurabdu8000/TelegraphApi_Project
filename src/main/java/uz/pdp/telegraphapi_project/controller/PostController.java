@@ -1,16 +1,13 @@
-package uz.pdp.controller;
+package uz.pdp.telegraphapi_project.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import uz.pdp.dto.PostCreateDto;
-import uz.pdp.entity.PostEntity;
-import uz.pdp.service.PostService;
+import uz.pdp.telegraphapi_project.dto.PostCreateDto;
+import uz.pdp.telegraphapi_project.entity.PostEntity;
+import uz.pdp.telegraphapi_project.service.PostService;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/post")
@@ -22,7 +19,7 @@ public class PostController {
 
     @PostMapping("/add")
     public PostEntity add(
-            @RequestParam PostCreateDto postCreateDto
+            @RequestBody PostCreateDto postCreateDto
             ){
         return postService.add(postCreateDto);
     }
@@ -30,7 +27,7 @@ public class PostController {
     @PutMapping("/update{id}")
     public String postUpdate(
             @PathVariable Long id,
-            @RequestParam PostCreateDto update
+            @RequestBody PostCreateDto update
     ){
         postService.update(id, update);
         return "Successfully updated";
@@ -42,7 +39,7 @@ public class PostController {
             @RequestParam(required = false) int page,
             @RequestParam(required = false) int size
     ){
-        return postService.getAll(ownerId,page,size);
+        return postService.getPostEntitiesByUserId(ownerId,page,size);
     }
 
     @DeleteMapping("/delete{id}")

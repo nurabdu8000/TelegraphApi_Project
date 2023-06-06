@@ -1,4 +1,4 @@
-package uz.pdp.entity;
+package uz.pdp.telegraphapi_project.entity;
 
 import jakarta.persistence.Entity;
 import lombok.*;

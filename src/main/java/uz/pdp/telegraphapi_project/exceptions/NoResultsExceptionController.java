@@ -1,6 +1,5 @@
-package uz.pdp.exceptions;
+package uz.pdp.telegraphapi_project.exceptions;
 
-import jakarta.persistence.NoResultException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

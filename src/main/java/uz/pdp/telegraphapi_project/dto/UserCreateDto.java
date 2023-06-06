@@ -1,11 +1,13 @@
-package uz.pdp.dto;
+package uz.pdp.telegraphapi_project.dto;
 
 import jakarta.persistence.MappedSuperclass;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.GetMapping;
 
-@MappedSuperclass
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class UserCreateDto {

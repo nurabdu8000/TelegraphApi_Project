@@ -1,4 +1,4 @@
-package uz.pdp.exceptions;
+package uz.pdp.telegraphapi_project.exceptions;
 
 import java.io.Serial;
 

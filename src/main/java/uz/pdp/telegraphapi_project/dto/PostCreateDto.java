@@ -1,4 +1,4 @@
-package uz.pdp.dto;
+package uz.pdp.telegraphapi_project.dto;
 
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
