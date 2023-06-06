@@ -1,6 +1,8 @@
 package uz.pdp.telegraphapi_project.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.telegraphapi_project.dto.PostCreateDto;
 import uz.pdp.telegraphapi_project.entity.PostEntity;
@@ -10,57 +12,43 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/post")
+@RequestMapping("/api/v1/book")
 @RequiredArgsConstructor
 public class PostController {
-
     private final PostService postService;
 
 
-    @PostMapping("/add")
-    public PostEntity add(
-            @RequestBody PostCreateDto postCreateDto
-            ){
-        return postService.add(postCreateDto);
-    }
-
-    @PutMapping("/update{id}")
-    public String postUpdate(
-            @PathVariable Long id,
-            @RequestBody PostCreateDto update
+    @GetMapping("/{userId}getAll")
+    public ResponseEntity<List<PostEntity>> getAll(
+            @PathVariable Long userId,
+            @RequestParam int page,
+            @RequestParam int size
     ){
-        postService.update(id, update);
-        return "Successfully updated";
-    }
+        return ResponseEntity.status(200).body(postService.getAll(userId, page, size));
 
-    @GetMapping("/getAll{ownerId}")
-    public List<PostEntity> getAll(
-            @PathVariable Long ownerId,
-            @RequestParam(required = false) int page,
-            @RequestParam(required = false) int size
-    ){
-        return postService.getPostEntitiesByUserId(ownerId,page,size);
     }
-
-    @DeleteMapping("/delete{id}")
-    public String delete(
-            @PathVariable Long id
-    ){
-        postService.deleteById(id);
-        return "Successfully deleted";
-    }
-
 
     @GetMapping("/search")
-    public List<PostEntity> search(
-            @RequestParam (required = false)String title,
-            @RequestParam (required = false)LocalDateTime creationDate,
-            @RequestParam(required = false) boolean sortByName
-            ){
-        return postService.searchByTitleOrDate(title, creationDate, sortByName);
+    public ResponseEntity<List<PostEntity>> searchPostByTitleOrDate(
+            @RequestParam String title,
+            @RequestParam LocalDateTime date,
+            @RequestParam boolean sort
+    ){
+        return ResponseEntity.status(200).body(postService.searchPostByTitleOrDate(title,date,sort));
     }
 
+    @PostMapping("/add")
+    public ResponseEntity<PostEntity> addBook(
+            @RequestBody PostCreateDto postCreateDto
+    ){
+        return ResponseEntity.ok(postService.save(postCreateDto));
+    }
 
+    @DeleteMapping("/{bookId}delete")
+    public ResponseEntity deleteBook(@PathVariable Long bookId){
+        postService.deleteById(bookId);
+        return ResponseEntity.status(204).build();
+    }
 
 
 
