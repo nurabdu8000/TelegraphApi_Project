@@ -1,4 +1,4 @@
-package uz.pdp.service;
+package uz.pdp.telegraphapi_project.service;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -6,9 +6,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import uz.pdp.dto.PostCreateDto;
-import uz.pdp.entity.PostEntity;
-import uz.pdp.repository.PostRepo;
+import uz.pdp.telegraphapi_project.dto.PostCreateDto;
+import uz.pdp.telegraphapi_project.entity.PostEntity;
+import uz.pdp.telegraphapi_project.repository.PostRepo;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,7 +28,7 @@ public class PostService {
     }
 
     public PostEntity update(Long id, PostCreateDto postDto){
-        PostEntity post = getById(id);
+        Optional<PostEntity> post = postRepo.findById(id);
         modelMapper.map(postDto,id);
         return postRepo.save(post);
     }
@@ -38,7 +38,7 @@ public class PostService {
         return byId.orElse(null);
     }
 
-    public List<PostEntity> getAll(Long id,int page, int size){
+    public List<PostEntity> getPostEntitiesByUserId(Long id,int page, int size){
         Pageable pageable = PageRequest.of(page, size);
         return postRepo.getPostEntitiesByUserId(id,pageable);
     }
@@ -49,8 +49,8 @@ public class PostService {
         );
     }
 
-    public void deleteById(Long id){
-        postRepo.deleteById(id);
+    public void deleteById(Long ownerId){
+        postRepo.deleteById(ownerId);
     }
 
 }

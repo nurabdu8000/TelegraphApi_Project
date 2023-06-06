@@ -1,12 +1,12 @@
-package uz.pdp.service;
+package uz.pdp.telegraphapi_project.service;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import uz.pdp.dto.UserCreateDto;
-import uz.pdp.entity.UserEntity;
-import uz.pdp.exceptions.UserInfNotTrueException;
-import uz.pdp.repository.UserRepo;
+import uz.pdp.telegraphapi_project.dto.UserCreateDto;
+import uz.pdp.telegraphapi_project.entity.UserEntity;
+import uz.pdp.telegraphapi_project.exceptions.UserInfNotTrueException;
+import uz.pdp.telegraphapi_project.repository.UserRepo;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package uz.pdp.config;
+package uz.pdp.telegraphapi_project.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
