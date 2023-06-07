@@ -8,10 +8,12 @@ import uz.pdp.telegraphapi_project.dto.LoginDto;
 import uz.pdp.telegraphapi_project.dto.UserCreateDto;
 import uz.pdp.telegraphapi_project.dto.response.JwtResponse;
 import uz.pdp.telegraphapi_project.entity.UserEntity;
+import uz.pdp.telegraphapi_project.entity.UserRole;
 import uz.pdp.telegraphapi_project.exceptions.DataNotFoundException;
 import uz.pdp.telegraphapi_project.exceptions.UserInfNotTrueException;
 import uz.pdp.telegraphapi_project.repository.UserRepo;
 
+import java.util.List;
 
 
 @Service
@@ -24,8 +26,9 @@ public class UserService {
     private final JwtService jwtService;
 
 
-    public UserEntity save(UserCreateDto userDto){
+    public UserEntity save(UserCreateDto userDto, List<UserRole> roles){
        UserEntity userEntity = modelMapper.map(userDto, UserEntity.class);
+       userEntity.setRole(roles);
        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
        return userRepo.save(userEntity);
     }

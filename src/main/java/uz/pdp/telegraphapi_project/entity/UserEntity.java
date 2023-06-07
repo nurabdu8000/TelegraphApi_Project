@@ -2,6 +2,8 @@ package uz.pdp.telegraphapi_project.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,11 +25,17 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @Column(unique = true,nullable = false)
     private String username;
     private String password;
+    @Enumerated(EnumType.STRING)
+    private List<UserRole> role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        String ROLE="ROLE_";
         List<SimpleGrantedAuthority> authorities=new ArrayList<>();
-        {}
+        for (UserRole role : role){
+            authorities.add(new SimpleGrantedAuthority(ROLE + role.name()));
+        }
+
         return authorities;
     }
 
