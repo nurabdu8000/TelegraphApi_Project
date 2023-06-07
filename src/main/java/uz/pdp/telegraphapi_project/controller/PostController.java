@@ -3,6 +3,7 @@ package uz.pdp.telegraphapi_project.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.telegraphapi_project.dto.PostCreateDto;
 import uz.pdp.telegraphapi_project.entity.PostEntity;
@@ -38,6 +39,7 @@ public class PostController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize(value = "hasRole('USER')")
     public ResponseEntity<PostEntity> addBook(
             @RequestBody PostCreateDto postCreateDto
     ){
